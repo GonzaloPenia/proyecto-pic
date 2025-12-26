@@ -12,7 +12,18 @@
       "Bash(pnpm type-check:*)",
       "Bash(pnpm build:*)",
       "Bash(git add:*)",
-      "Bash(npm run migration:generate:*)"
+      "Bash(npm run migration:generate:*)",
+      "Bash(npx nest:*)",
+      "Bash(mkdir:*)",
+      "Bash(pnpm start:dev)",
+      "Bash(dir:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm rebuild:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(curl:*)"
     ]
   }
 }
