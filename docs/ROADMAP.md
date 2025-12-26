@@ -55,12 +55,12 @@
   - [X] Revisar SQL generado
   - [X] Ejecutar migración: `pnpm typeorm migration:run`
   - [X] Verificar tabla en base de datos
-- [ ] **Crear Módulo Users**
+- [X] **Crear Módulo Users**
 
-  - [ ] Generar módulo: `nest g module users`
-  - [ ] Generar servicio: `nest g service users`
-  - [ ] Generar controlador: `nest g controller users`
-  - [ ] Implementar CRUD básico de usuarios
+  - [X] Generar módulo: `nest g module users`
+  - [X] Generar servicio: `nest g service users`
+  - [X] Generar controlador: `nest g controller users`
+  - [X] Implementar CRUD básico de usuarios
 - [ ] **Crear Módulo Auth**
 
   - [ ] Generar módulo: `nest g module auth`
