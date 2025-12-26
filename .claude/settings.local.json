@@ -23,7 +23,10 @@
       "Bash(netstat:*)",
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(timeout 10 bash -c \"while ! netstat -ano | grep -q '':5173.*LISTENING''; do sleep 1; done && echo ''Frontend server is up''\")",
+      "Bash(cat:*)"
     ]
   }
 }

@@ -61,100 +61,100 @@
   - [X] Generar servicio: `nest g service users`
   - [X] Generar controlador: `nest g controller users`
   - [X] Implementar CRUD básico de usuarios
-- [ ] **Crear Módulo Auth**
+- [X] **Crear Módulo Auth**
 
-  - [ ] Generar módulo: `nest g module auth`
-  - [ ] Generar servicio: `nest g service auth`
-  - [ ] Generar controlador: `nest g controller auth`
-- [ ] **Implementar Registro de Usuarios**
+  - [X] Generar módulo: `nest g module auth`
+  - [X] Generar servicio: `nest g service auth`
+  - [X] Generar controlador: `nest g controller auth`
+- [X] **Implementar Registro de Usuarios**
 
-  - [ ] Crear DTO `RegisterDto` (username, email, password)
-  - [ ] Implementar validaciones con class-validator
-  - [ ] Hash de password con bcrypt (10 rounds)
-  - [ ] Endpoint POST `/auth/register`
-  - [ ] Manejar errores (email duplicado, etc)
-- [ ] **Implementar Login de Usuarios**
+  - [X] Crear DTO `RegisterDto` (username, email, password)
+  - [X] Implementar validaciones con class-validator
+  - [X] Hash de password con bcrypt (10 rounds)
+  - [X] Endpoint POST `/auth/register`
+  - [X] Manejar errores (email duplicado, etc)
+- [X] **Implementar Login de Usuarios**
 
-  - [ ] Crear DTO `LoginDto` (username, password)
-  - [ ] Implementar `LocalStrategy` con Passport
-  - [ ] Validar credenciales (comparar hash)
-  - [ ] Endpoint POST `/auth/login`
-- [ ] **Implementar JWT Authentication**
+  - [X] Crear DTO `LoginDto` (username, password)
+  - [X] Implementar `LocalStrategy` con Passport
+  - [X] Validar credenciales (comparar hash)
+  - [X] Endpoint POST `/auth/login`
+- [X] **Implementar JWT Authentication**
 
-  - [ ] Configurar JwtModule con secret y expiración
-  - [ ] Crear `JwtStrategy` para validar tokens
-  - [ ] Generar access token en login exitoso
-  - [ ] Crear decorador `@CurrentUser()` para extraer user del request
-- [ ] **Crear Guards de Autenticación**
+  - [X] Configurar JwtModule con secret y expiración
+  - [X] Crear `JwtStrategy` para validar tokens
+  - [X] Generar access token en login exitoso
+  - [X] Crear decorador `@CurrentUser()` para extraer user del request
+- [X] **Crear Guards de Autenticación**
 
-  - [ ] Crear `JwtAuthGuard` para rutas protegidas
-  - [ ] Crear `LocalAuthGuard` para login
-  - [ ] Aplicar guards en controladores necesarios
-- [ ] **Testing de Autenticación**
+  - [X] Crear `JwtAuthGuard` para rutas protegidas
+  - [X] Crear `LocalAuthGuard` para login
+  - [X] Aplicar guards en controladores necesarios
+- [X] **Testing de Autenticación**
 
-  - [ ] Probar registro con Postman/Thunder Client
-  - [ ] Probar login y obtención de token
-  - [ ] Probar acceso a ruta protegida con token
-  - [ ] Probar errores (credenciales inválidas, token expirado)
+  - [X] Probar registro con Postman/Thunder Client
+  - [X] Probar login y obtención de token
+  - [X] Probar acceso a ruta protegida con token
+  - [X] Probar errores (credenciales inválidas, token expirado)
 
 ### Frontend - Autenticación UI
 
-- [ ] **Crear Estructura de Carpetas Frontend**
+- [X] **Crear Estructura de Carpetas Frontend**
 
-  - [ ] Crear carpetas: components/, contexts/, hooks/, pages/, services/, utils/
-- [ ] **Configurar React Router**
+  - [X] Crear carpetas: components/, contexts/, hooks/, pages/, services/, utils/
+- [X] **Configurar React Router**
 
-  - [ ] Instalar dependencias ya agregadas
-  - [ ] Crear archivo `src/App.tsx` con rutas básicas
-  - [ ] Crear páginas: HomePage, LoginPage, RegisterPage, DashboardPage
-- [ ] **Crear AuthContext**
+  - [X] Instalar dependencias ya agregadas
+  - [X] Crear archivo `src/App.tsx` con rutas básicas
+  - [X] Crear páginas: HomePage, LoginPage, RegisterPage, DashboardPage
+- [X] **Crear AuthContext**
 
-  - [ ] Crear `src/contexts/AuthContext.tsx`
-  - [ ] Estado: user, token, isAuthenticated, isLoading
-  - [ ] Funciones: login, register, logout
-  - [ ] Guardar token en localStorage
-  - [ ] Provider envolviendo la app
-- [ ] **Crear Servicio de API (Axios)**
+  - [X] Crear `src/contexts/AuthContext.tsx`
+  - [X] Estado: user, token, isAuthenticated, isLoading
+  - [X] Funciones: login, register, logout
+  - [X] Guardar token en localStorage
+  - [X] Provider envolviendo la app
+- [X] **Crear Servicio de API (Axios)**
 
-  - [ ] Crear `src/services/api.ts` con instancia de Axios
-  - [ ] Configurar baseURL desde variables de entorno
-  - [ ] Crear interceptor para agregar token en headers
-  - [ ] Crear interceptor para manejar errores 401
-- [ ] **Crear Auth Service**
+  - [X] Crear `src/services/api.ts` con instancia de Axios
+  - [X] Configurar baseURL desde variables de entorno
+  - [X] Crear interceptor para agregar token en headers
+  - [X] Crear interceptor para manejar errores 401
+- [X] **Crear Auth Service**
 
-  - [ ] Crear `src/services/auth.service.ts`
-  - [ ] Función `register(data: RegisterDto)`
-  - [ ] Función `login(data: LoginDto)`
-  - [ ] Función `getCurrentUser()`
-- [ ] **Crear Componente LoginForm**
+  - [X] Crear `src/services/auth.service.ts`
+  - [X] Función `register(data: RegisterDto)`
+  - [X] Función `login(data: LoginDto)`
+  - [X] Función `getCurrentUser()`
+- [X] **Crear Componente LoginForm**
 
-  - [ ] Crear `src/components/auth/LoginForm.tsx`
-  - [ ] Formulario con username y password
-  - [ ] Validación de campos
-  - [ ] Llamar a authContext.login()
-  - [ ] Mostrar errores
-- [ ] **Crear Componente RegisterForm**
+  - [X] Integrado en `src/pages/LoginPage.tsx`
+  - [X] Formulario con username y password
+  - [X] Validación de campos
+  - [X] Llamar a authContext.login()
+  - [X] Mostrar errores
+- [X] **Crear Componente RegisterForm**
 
-  - [ ] Crear `src/components/auth/RegisterForm.tsx`
-  - [ ] Formulario con username, email, password, confirmPassword
-  - [ ] Validación de campos (email válido, passwords coinciden)
-  - [ ] Llamar a authContext.register()
-  - [ ] Mostrar errores
-- [ ] **Crear Páginas de Auth**
+  - [X] Integrado en `src/pages/RegisterPage.tsx`
+  - [X] Formulario con username, email, password, confirmPassword
+  - [X] Validación de campos (email válido, passwords coinciden)
+  - [X] Llamar a authContext.register()
+  - [X] Mostrar errores
+- [X] **Crear Páginas de Auth**
 
-  - [ ] Crear `src/pages/LoginPage.tsx` con LoginForm
-  - [ ] Crear `src/pages/RegisterPage.tsx` con RegisterForm
-  - [ ] Redireccionar a dashboard después de login exitoso
-- [ ] **Crear ProtectedRoute Component**
+  - [X] Crear `src/pages/LoginPage.tsx` con LoginForm
+  - [X] Crear `src/pages/RegisterPage.tsx` con RegisterForm
+  - [X] Redireccionar a dashboard después de login exitoso
+- [X] **Crear ProtectedRoute Component**
 
-  - [ ] Crear `src/components/common/ProtectedRoute.tsx`
-  - [ ] Verificar isAuthenticated
-  - [ ] Redireccionar a /login si no está autenticado
-- [ ] **Crear Dashboard Básico**
+  - [X] Crear `src/components/common/ProtectedRoute.tsx`
+  - [X] Verificar isAuthenticated
+  - [X] Redireccionar a /login si no está autenticado
+- [X] **Crear Dashboard Básico**
 
-  - [ ] Crear `src/pages/DashboardPage.tsx`
-  - [ ] Mostrar información del usuario logueado
-  - [ ] Botón de logout
+  - [X] Crear `src/pages/DashboardPage.tsx`
+  - [X] Mostrar información del usuario logueado
+  - [X] Botón de logout
 - [ ] **Testing Frontend Auth**
 
   - [ ] Probar flujo completo: registro → login → dashboard → logout
