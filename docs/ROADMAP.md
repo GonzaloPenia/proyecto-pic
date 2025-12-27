@@ -155,17 +155,17 @@
   - [X] Crear `src/pages/DashboardPage.tsx`
   - [X] Mostrar información del usuario logueado
   - [X] Botón de logout
-- [ ] **Testing Frontend Auth**
+- [X] **Testing Frontend Auth**
 
-  - [ ] Probar flujo completo: registro → login → dashboard → logout
-  - [ ] Verificar persistencia de sesión (refresh page)
-  - [ ] Probar manejo de errores
+  - [X] Probar flujo completo: registro → login → dashboard → logout
+  - [X] Verificar persistencia de sesión (refresh page)
+  - [X] Probar manejo de errores
 
 ### Finalización Fase 1
 
-- [ ] **Commit de Fase 1**
-  - [ ] Crear commit con mensaje descriptivo
-  - [ ] Pushear a GitHub
+- [X] **Commit de Fase 1**
+  - [X] Crear commit con mensaje descriptivo
+  - [X] Pushear a GitHub
 
 ---
 
@@ -173,29 +173,29 @@
 
 ### Backend - Sistema de Salas
 
-- [ ] **Crear Entidad Room**
+- [X] **Crear Entidad Room**
 
-  - [ ] Crear `src/rooms/entities/room.entity.ts`
-  - [ ] Campos: id, roomCode, hostId, status, maxPlayers, createdAt, startedAt, finishedAt
-  - [ ] Relación con User (host)
-- [ ] **Generar Migración de Rooms**
+  - [X] Crear `src/rooms/entities/room.entity.ts`
+  - [X] Campos: id, roomCode, hostId, status, maxPlayers, createdAt, startedAt, finishedAt
+  - [X] Relación con User (host)
+- [X] **Generar Migración de Rooms**
 
-  - [ ] Generar migración para tabla rooms
-  - [ ] Ejecutar migración
-- [ ] **Crear Módulo Rooms**
+  - [X] Generar migración para tabla rooms
+  - [X] Ejecutar migración
+- [X] **Crear Módulo Rooms**
 
-  - [ ] Generar módulo, servicio y controlador
-  - [ ] Implementar lógica de generación de código único (6 caracteres)
-- [ ] **Implementar Crear Sala**
+  - [X] Generar módulo, servicio y controlador
+  - [X] Implementar lógica de generación de código único (6 caracteres)
+- [X] **Implementar Crear Sala**
 
-  - [ ] Endpoint POST `/rooms/create`
-  - [ ] Generar roomCode único
-  - [ ] Asignar user actual como host
-  - [ ] Retornar sala creada
-- [ ] **Implementar Unirse a Sala**
+  - [X] Endpoint POST `/rooms/create`
+  - [X] Generar roomCode único
+  - [X] Asignar user actual como host
+  - [X] Retornar sala creada
+- [X] **Implementar Unirse a Sala**
 
-  - [ ] Endpoint POST `/rooms/join`
-  - [ ] Validar que roomCode existe
+  - [X] Endpoint POST `/rooms/join`
+  - [X] Validar que roomCode existe
   - [ ] Validar que sala no está llena (max 8 players)
   - [ ] Agregar jugador a la sala
 - [ ] **Configurar WebSocket Gateway**

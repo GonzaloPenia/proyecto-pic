@@ -12,7 +12,7 @@ export const typeOrmConfig: DataSourceOptions = {
   username: process.env.DATABASE_USER || 'pictionary_user',
   password: process.env.DATABASE_PASSWORD || 'pictionary_password',
   database: process.env.DATABASE_NAME || 'pictionary_db',
-  entities: [],  // Vacío para migraciones, se cargará desde app.module.ts en runtime
+  entities: [path.join(process.cwd(), 'src', '**', '*.entity{.ts,.js}')],
   migrations: [path.join(process.cwd(), 'src', 'migrations', '*{.ts,.js}')],
   synchronize: false, // Siempre false en producción, usar migraciones
   logging: process.env.NODE_ENV === 'development',
