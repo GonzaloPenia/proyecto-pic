@@ -3,6 +3,9 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+import CreateRoomPage from './pages/CreateRoomPage';
+import JoinRoomPage from './pages/JoinRoomPage';
+import LobbyPage from './pages/LobbyPage';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import './App.css';
 
@@ -17,6 +20,30 @@ function App() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/create-room"
+        element={
+          <ProtectedRoute>
+            <CreateRoomPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/join-room"
+        element={
+          <ProtectedRoute>
+            <JoinRoomPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/lobby/:roomCode"
+        element={
+          <ProtectedRoute>
+            <LobbyPage />
           </ProtectedRoute>
         }
       />

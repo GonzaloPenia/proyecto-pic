@@ -1,69 +1,54 @@
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
   return (
-    <div style={{ padding: '2rem' }}>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '2rem'
-      }}>
-        <div>
-          <h1>Dashboard</h1>
+    <>
+      <Navbar />
+      <div style={{ padding: '2rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <h1>Pingonary</h1>
           <p style={{ marginTop: '0.5rem', color: '#666' }}>
             Bienvenido, <strong>{user?.username}</strong>!
           </p>
-          <p style={{ fontSize: '0.875rem', color: '#999' }}>
-            {user?.email}
-          </p>
         </div>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: '0.5rem 1rem',
-            fontSize: '1rem',
-            backgroundColor: '#dc3545',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          Cerrar Sesión
-        </button>
-      </div>
-
-      <div style={{
-        backgroundColor: '#f8f9fa',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        marginBottom: '2rem'
-      }}>
-        <h2 style={{ marginTop: 0 }}>Información de la Cuenta</h2>
-        <div style={{ display: 'grid', gap: '0.5rem' }}>
-          <p><strong>ID:</strong> {user?.id}</p>
-          <p><strong>Usuario:</strong> {user?.username}</p>
-          <p><strong>Email:</strong> {user?.email}</p>
-          <p><strong>Estado:</strong> {user?.isActive ? 'Activo' : 'Inactivo'}</p>
-          <p><strong>Miembro desde:</strong> {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</p>
-        </div>
-      </div>
 
       <div>
-        <h2>Opciones del Juego:</h2>
-        <ul style={{ marginTop: '1rem', listStyle: 'none', padding: 0 }}>
-          <li style={{ marginBottom: '0.5rem' }}>
+        <h2>Elije un modo de juego:</h2>
+
+        <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginTop: '1rem' }}>
+          {/* Botón naranja a la izquierda */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem' }}>
+              Todos en este dispositivo
+            </p>
             <button
+              style={{
+                padding: '0.75rem 1.5rem',
+                fontSize: '1rem',
+                width: '250px',
+                backgroundColor: '#fa8023ff',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Jugar!
+            </button>
+          </div>
+
+          {/* Botones verde y azul a la derecha */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem' }}>
+              Cada uno en su dispositivo
+            </p>
+            <button
+              onClick={() => navigate('/create-room')}
               style={{
                 padding: '0.75rem 1.5rem',
                 fontSize: '1rem',
@@ -77,9 +62,9 @@ export default function DashboardPage() {
             >
               Crear Sala Nueva
             </button>
-          </li>
-          <li style={{ marginBottom: '0.5rem' }}>
+
             <button
+              onClick={() => navigate('/join-room')}
               style={{
                 padding: '0.75rem 1.5rem',
                 fontSize: '1rem',
@@ -93,12 +78,16 @@ export default function DashboardPage() {
             >
               Unirse a Sala
             </button>
-          </li>
-        </ul>
+          </div>
+        </div>
+
         <p style={{ marginTop: '1rem', color: '#666', fontSize: '0.875rem' }}>
-          Estas opciones estarán disponibles en la próxima fase del desarrollo.
+          Para mejorar la experiencia de juego recomendamos la opcion "Cada uno en su dispositivo".
+
         </p>
+          Estas opciones estarán disponibles en la próxima fase del desarrollo.
       </div>
-    </div>
+      </div>
+    </>
   );
 }
