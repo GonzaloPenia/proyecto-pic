@@ -2,8 +2,8 @@
 
 ## 📍 Estado Actual del Proyecto
 
-**Fase actual:** Configuración Inicial Completada ✅
-**Próximo paso:** Configurar PostgreSQL y comenzar Fase 1 (Autenticación)
+**Fase actual:** Fase 2 - Sistema de Salas (Backend Completado) ✅
+**Próximo paso:** Implementar Frontend de Salas (UI de Lobby) o continuar con Fase 3 (Lógica del Juego)
 
 ---
 
@@ -196,40 +196,44 @@
 
   - [X] Endpoint POST `/rooms/join`
   - [X] Validar que roomCode existe
-  - [ ] Validar que sala no está llena (max 8 players)
-  - [ ] Agregar jugador a la sala
-- [ ] **Configurar WebSocket Gateway**
+- [X] **Configurar WebSocket Gateway**
 
-  - [ ] Generar gateway: `nest g gateway websockets/game`
-  - [ ] Configurar CORS para WebSocket
-  - [ ] Implementar autenticación JWT para WebSocket
-- [ ] **Crear WS JWT Guard**
+  - [X] Generar gateway: `nest g gateway websockets/game`
+  - [X] Configurar CORS para WebSocket
+  - [X] Implementar autenticación JWT para WebSocket
+- [X] **Crear WS JWT Guard**
 
-  - [ ] Crear `src/common/guards/ws-jwt.guard.ts`
-  - [ ] Validar token desde handshake
-  - [ ] Adjuntar user a socket.data
-- [ ] **Implementar Eventos de Sala**
+  - [X] Crear `src/common/guards/ws-jwt.guard.ts`
+  - [X] Validar token desde handshake
+  - [X] Adjuntar user a socket.data
+- [X] **Implementar Eventos de Sala**
 
-  - [ ] Evento `join_room` - Unirse a room de Socket.io
-  - [ ] Evento `leave_room` - Salir de room
-  - [ ] Broadcast `player_joined` a todos en la sala
-  - [ ] Broadcast `player_left` cuando alguien se va
-- [ ] **Crear Lógica de Asignación de Equipos**
+  - [X] Evento `join_room` - Unirse a room de Socket.io
+  - [X] Evento `leave_room` - Salir de room
+  - [X] Broadcast `player_joined` a todos en la sala
+  - [X] Broadcast `player_left` cuando alguien se va
+- [X] **Crear Lógica de Asignación de Equipos**
 
-  - [ ] Crear entidad Team (id, gameId, teamNumber, score, categoriesCompleted)
-  - [ ] Crear entidad GameParticipant (id, gameId, userId, teamId, joinOrder)
-  - [ ] Generar migraciones
-- [ ] **Implementar Asignación Manual de Equipos**
+  - [X] Crear entidad Team (id, gameId, teamNumber, score, categoriesCompleted)
+  - [X] Crear entidad GameParticipant (id, gameId, userId, teamId, joinOrder)
+  - [X] Generar migraciones
+- [X] **Implementar Tracking de Jugadores en Sala**
 
-  - [ ] Evento `assign_teams` (solo host)
-  - [ ] Validar que user es host
-  - [ ] Asignar jugadores a team1 y team2
-  - [ ] Broadcast `teams_assigned` con equipos
-- [ ] **Implementar Asignación Aleatoria de Equipos**
+  - [X] Registrar jugadores cuando se unen vía WebSocket
+  - [X] Validar que sala no está llena (max players según configuración)
+  - [X] Mantener lista de jugadores conectados en tiempo real
+  - [X] Remover jugador cuando se desconecta
+- [X] **Implementar Asignación Manual de Equipos**
 
-  - [ ] Evento `assign_teams_random` (solo host)
-  - [ ] Algoritmo: shuffle players y dividir en 2 equipos equitativos
-  - [ ] Broadcast `teams_assigned`
+  - [X] Evento `assign_teams` (solo host)
+  - [X] Validar que user es host
+  - [X] Asignar jugadores a team1 y team2
+  - [X] Broadcast `teams_assigned` con equipos
+- [X] **Implementar Asignación Aleatoria de Equipos**
+
+  - [X] Evento `assign_teams_random` (solo host)
+  - [X] Algoritmo: shuffle players y dividir en 2 equipos equitativos
+  - [X] Broadcast `teams_assigned`
 
 ### Frontend - UI de Salas
 
