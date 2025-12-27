@@ -14,14 +14,18 @@ const CreateRoomPage = () => {
     setError('');
     setLoading(true);
 
+    console.log('🔵 [CreateRoom] Iniciando creación de sala con maxPlayers:', maxPlayers);
+
     try {
       const room = await roomsService.createRoom({ maxPlayers });
-      console.log('Room created:', room);
+      console.log('✅ [CreateRoom] Sala creada exitosamente:', room);
 
       // Navegar al lobby con el código de la sala
+      console.log('🔵 [CreateRoom] Navegando a lobby con código:', room.roomCode);
       navigate(`/lobby/${room.roomCode}`);
     } catch (err: any) {
-      console.error('Error creating room:', err);
+      console.error('❌ [CreateRoom] Error al crear sala:', err);
+      console.error('❌ [CreateRoom] Error response:', err.response?.data);
       setError(err.response?.data?.message || 'Error al crear la sala');
     } finally {
       setLoading(false);

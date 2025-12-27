@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSocket, useAuth } from '../contexts';
 import { roomsService } from '../services/rooms.service';
+import { theme } from '../utils';
+import { Hourglass } from '../components/common';
 
 interface Player {
   userId: string;
@@ -71,6 +73,13 @@ const LobbyPage = () => {
     handleJoinRoom();
 
     // Event listeners
+    const handleRoomState = (data: any) => {
+      console.log('Room state received:', data);
+      setPlayers(data.players || []);
+      setPlayerCount(data.playerCount);
+      setMaxPlayers(data.maxPlayers);
+    };
+
     const handlePlayerJoined = (data: any) => {
       console.log('Player joined:', data);
       setPlayerCount(data.playerCount);
@@ -102,12 +111,14 @@ const LobbyPage = () => {
       setTeams(data.participants);
     };
 
+    socket.on('room_state', handleRoomState);
     socket.on('player_joined', handlePlayerJoined);
     socket.on('player_left', handlePlayerLeft);
     socket.on('teams_assigned', handleTeamsAssigned);
 
     // Cleanup
     return () => {
+      socket.off('room_state', handleRoomState);
       socket.off('player_joined', handlePlayerJoined);
       socket.off('player_left', handlePlayerLeft);
       socket.off('teams_assigned', handleTeamsAssigned);
@@ -138,9 +149,9 @@ const LobbyPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        background: theme.colors.background.primary
       }}>
-        <div style={{ color: 'white', fontSize: '24px' }}>Cargando...</div>
+        <div style={{ color: theme.colors.text.secondary, fontSize: '24px' }}>Cargando...</div>
       </div>
     );
   }
@@ -152,21 +163,21 @@ const LobbyPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        background: theme.colors.background.primary
       }}>
         <div style={{
-          background: 'white',
+          background: theme.colors.background.secondary,
           padding: '40px',
           borderRadius: '10px',
           textAlign: 'center'
         }}>
-          <h2 style={{ color: '#c33', marginBottom: '20px' }}>{error}</h2>
+          <h2 style={{ color: theme.colors.text.error, marginBottom: '20px' }}>{error}</h2>
           <button
             onClick={handleLeaveRoom}
             style={{
               padding: '12px 24px',
-              background: '#667eea',
-              color: 'white',
+              background: theme.colors.background.primary,
+              color: theme.colors.text.secondary,
               border: 'none',
               borderRadius: '5px',
               cursor: 'pointer'
@@ -186,13 +197,13 @@ const LobbyPage = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: theme.colors.background.primary,
       padding: '20px'
     }}>
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        background: 'white',
+        background: theme.colors.background.secondary,
         borderRadius: '10px',
         padding: '30px',
         boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
@@ -207,23 +218,23 @@ const LobbyPage = () => {
           paddingBottom: '20px'
         }}>
           <div>
-            <h1 style={{ margin: 0, marginBottom: '10px' }}>Sala de Espera</h1>
+            <h1 style={{ margin: 0, marginBottom: '10px', color: theme.colors.text.primary }}>Sala de Espera</h1>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
               <div style={{
                 fontSize: '32px',
                 fontWeight: 'bold',
-                color: '#667eea',
+                color: theme.colors.text.primary,
                 letterSpacing: '6px'
               }}>
                 {roomCode}
               </div>
-              <div style={{ fontSize: '14px', color: '#666' }}>
+              <div style={{ fontSize: '14px', color: theme.colors.text.primary }}>
                 {playerCount}/{maxPlayers} jugadores
               </div>
               {isHost && (
                 <span style={{
                   background: '#28a745',
-                  color: 'white',
+                  color: theme.colors.text.secondary,
                   padding: '4px 12px',
                   borderRadius: '12px',
                   fontSize: '12px',
@@ -239,7 +250,7 @@ const LobbyPage = () => {
             style={{
               padding: '10px 20px',
               background: '#dc3545',
-              color: 'white',
+              color: theme.colors.text.secondary,
               border: 'none',
               borderRadius: '5px',
               cursor: 'pointer',
@@ -265,7 +276,12 @@ const LobbyPage = () => {
         {/* Jugadores sin asignar */}
         {unassignedPlayers.length > 0 && (
           <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ marginBottom: '15px' }}>Jugadores en espera ({unassignedPlayers.length})</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+              <h3 style={{ margin: 0, color: theme.colors.text.primary }}>
+                Jugadores en espera ({unassignedPlayers.length})
+              </h3>
+              <Hourglass size={40} />
+            </div>
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
@@ -278,12 +294,12 @@ const LobbyPage = () => {
                     padding: '12px',
                     background: '#f8f9fa',
                     borderRadius: '5px',
-                    border: '2px solid #ddd'
+                    border: `2px solid ${theme.colors.border.primary}`
                   }}
                 >
-                  <div style={{ fontWeight: '600' }}>{player.username}</div>
+                  <div style={{ fontWeight: '600', color: theme.colors.text.primary }}>{player.username}</div>
                   {player.userId === user?.id && (
-                    <span style={{ fontSize: '12px', color: '#667eea' }}>(Tú)</span>
+                    <span style={{ fontSize: '12px', color: theme.colors.text.primary }}>(Tú)</span>
                   )}
                 </div>
               ))}
@@ -294,16 +310,16 @@ const LobbyPage = () => {
         {/* Equipos */}
         {teams.length > 0 && (
           <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ marginBottom: '15px' }}>Equipos Asignados</h3>
+            <h3 style={{ marginBottom: '15px', color: theme.colors.text.primary }}>Equipos Asignados</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               {/* Equipo Azul */}
               <div style={{
                 padding: '20px',
                 background: '#e3f2fd',
                 borderRadius: '10px',
-                border: '3px solid #2196f3'
+                border: `3px solid ${theme.colors.border.primary}`
               }}>
-                <h4 style={{ margin: '0 0 15px 0', color: '#1976d2' }}>
+                <h4 style={{ margin: '0 0 15px 0', color: theme.colors.text.primary }}>
                   Equipo Azul ({team1.length})
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -312,19 +328,20 @@ const LobbyPage = () => {
                       key={player.userId}
                       style={{
                         padding: '10px',
-                        background: 'white',
+                        background: theme.colors.background.secondary,
                         borderRadius: '5px',
-                        fontWeight: '500'
+                        fontWeight: '500',
+                        color: theme.colors.text.primary
                       }}
                     >
                       {player.username}
                       {player.userId === user?.id && (
-                        <span style={{ marginLeft: '8px', color: '#2196f3' }}>(Tú)</span>
+                        <span style={{ marginLeft: '8px', color: theme.colors.text.primary }}>(Tú)</span>
                       )}
                     </div>
                   ))}
                   {team1.length === 0 && (
-                    <div style={{ color: '#999', fontStyle: 'italic' }}>Sin jugadores</div>
+                    <div style={{ color: theme.colors.text.disabled, fontStyle: 'italic' }}>Sin jugadores</div>
                   )}
                 </div>
               </div>
@@ -334,9 +351,9 @@ const LobbyPage = () => {
                 padding: '20px',
                 background: '#f5f5f5',
                 borderRadius: '10px',
-                border: '3px solid #9e9e9e'
+                border: `3px solid ${theme.colors.border.primary}`
               }}>
-                <h4 style={{ margin: '0 0 15px 0', color: '#616161' }}>
+                <h4 style={{ margin: '0 0 15px 0', color: theme.colors.text.primary }}>
                   Equipo Blanco ({team2.length})
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -345,19 +362,20 @@ const LobbyPage = () => {
                       key={player.userId}
                       style={{
                         padding: '10px',
-                        background: 'white',
+                        background: theme.colors.background.secondary,
                         borderRadius: '5px',
-                        fontWeight: '500'
+                        fontWeight: '500',
+                        color: theme.colors.text.primary
                       }}
                     >
                       {player.username}
                       {player.userId === user?.id && (
-                        <span style={{ marginLeft: '8px', color: '#616161' }}>(Tú)</span>
+                        <span style={{ marginLeft: '8px', color: theme.colors.text.primary }}>(Tú)</span>
                       )}
                     </div>
                   ))}
                   {team2.length === 0 && (
-                    <div style={{ color: '#999', fontStyle: 'italic' }}>Sin jugadores</div>
+                    <div style={{ color: theme.colors.text.disabled, fontStyle: 'italic' }}>Sin jugadores</div>
                   )}
                 </div>
               </div>
@@ -381,8 +399,8 @@ const LobbyPage = () => {
               style={{
                 flex: 1,
                 padding: '14px',
-                background: players.length < 2 ? '#ccc' : '#28a745',
-                color: 'white',
+                background: players.length < 2 ? theme.colors.text.disabled : theme.colors.background.primary,
+                color: theme.colors.text.secondary,
                 border: 'none',
                 borderRadius: '5px',
                 fontSize: '16px',
@@ -397,9 +415,9 @@ const LobbyPage = () => {
               style={{
                 flex: 1,
                 padding: '14px',
-                background: (teams.length === 0 || team1.length === 0 || team2.length === 0) ? '#ccc' : '#667eea',
-                color: 'white',
-                border: 'none',
+                background: (teams.length === 0 || team1.length === 0 || team2.length === 0) ? theme.colors.text.disabled : theme.colors.background.secondary,
+                color: (teams.length === 0 || team1.length === 0 || team2.length === 0) ? theme.colors.text.secondary : theme.colors.text.primary,
+                border: `2px solid ${theme.colors.border.primary}`,
                 borderRadius: '5px',
                 fontSize: '16px',
                 fontWeight: '600',

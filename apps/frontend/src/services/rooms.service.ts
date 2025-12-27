@@ -16,16 +16,16 @@ export interface Room {
 export const roomsService = {
   async createRoom(data: CreateRoomDto): Promise<Room> {
     const response = await api.post('/rooms/create', data);
-    return response.data;
+    return response.data.room; // El backend devuelve { message, room }
   },
 
   async joinRoom(roomCode: string): Promise<Room> {
     const response = await api.post('/rooms/join', { roomCode });
-    return response.data;
+    return response.data.room; // El backend devuelve { message, room }
   },
 
   async getRoomByCode(roomCode: string): Promise<Room> {
     const response = await api.get(`/rooms/${roomCode}`);
-    return response.data;
+    return response.data.room; // El backend devuelve { message, room }
   },
 };
