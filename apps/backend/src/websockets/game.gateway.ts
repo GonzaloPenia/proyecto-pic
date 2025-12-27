@@ -21,6 +21,8 @@ import { GamesService } from '../games/games.service';
   },
   namespace: '/game',
 })
+
+
 export class GameGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
@@ -138,8 +140,27 @@ export class GameGateway
       // Obtener lista actualizada de jugadores
       const connectedPlayers = this.gamesService.getConnectedPlayers(data.roomCode);
 
-      // Notificar a TODOS en la sala (incluyendo al que se unió)
-      this.server.to(data.roomCode).emit('player_joined', {
+      // PRIMERO: Enviar al jugador que se une la lista completa de jugadores actuales
+      // Obtener todos los sockets del namespace usando fetchSockets()
+      const allSockets = await this.server.fetchSockets();
+
+      client.emit('room_state', {
+        roomCode: data.roomCode,
+        players: connectedPlayers.map(playerId => {
+          // Obtener info del jugador del socket
+          const playerSocket = allSockets.find((s) => s.data?.user?.sub === playerId);
+          return {
+            userId: playerId,
+            username: playerSocket?.data?.user?.username || 'Unknown',
+            email: playerSocket?.data?.user?.email,
+          };
+        }),
+        playerCount: connectedPlayers.length,
+        maxPlayers: room.maxPlayers,
+      });
+
+      // SEGUNDO: Notificar a los demás en la sala que un nuevo jugador se unió
+      client.to(data.roomCode).emit('player_joined', {
         userId: user.sub,
         username: user.username,
         email: user.email,

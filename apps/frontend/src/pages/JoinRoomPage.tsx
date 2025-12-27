@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { roomsService } from '../services/rooms.service';
+import { theme } from '../utils';
 
 const JoinRoomPage = () => {
   const [roomCode, setRoomCode] = useState<string>('');
@@ -39,11 +40,11 @@ const JoinRoomPage = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: theme.colors.background.primary,
       padding: '20px'
     }}>
       <div style={{
-        background: 'white',
+        background: theme.colors.background.secondary,
         padding: '40px',
         borderRadius: '10px',
         boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
@@ -53,7 +54,7 @@ const JoinRoomPage = () => {
         <h2 style={{
           textAlign: 'center',
           marginBottom: '30px',
-          color: '#333'
+          color: theme.colors.text.primary
         }}>
           Unirse a una Sala
         </h2>
@@ -64,7 +65,7 @@ const JoinRoomPage = () => {
               display: 'block',
               marginBottom: '8px',
               fontWeight: '500',
-              color: '#555'
+              color: theme.colors.text.primary
             }}>
               Código de la sala
             </label>
@@ -77,13 +78,14 @@ const JoinRoomPage = () => {
               style={{
                 width: '100%',
                 padding: '12px',
-                border: '1px solid #ddd',
+                border: `2px solid ${theme.colors.border.primary}`,
                 borderRadius: '5px',
                 fontSize: '20px',
                 fontWeight: '600',
                 textAlign: 'center',
                 letterSpacing: '4px',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                color: theme.colors.text.primary
               }}
             />
           </div>
@@ -92,8 +94,8 @@ const JoinRoomPage = () => {
             <div style={{
               padding: '12px',
               marginBottom: '20px',
-              background: '#fee',
-              color: '#c33',
+              background: theme.colors.background.error,
+              color: theme.colors.text.error,
               borderRadius: '5px',
               fontSize: '14px'
             }}>
@@ -107,8 +109,8 @@ const JoinRoomPage = () => {
             style={{
               width: '100%',
               padding: '14px',
-              background: (loading || !roomCode.trim()) ? '#ccc' : '#667eea',
-              color: 'white',
+              background: (loading || !roomCode.trim()) ? theme.colors.text.disabled : theme.colors.background.primary,
+              color: theme.colors.text.secondary,
               border: 'none',
               borderRadius: '5px',
               fontSize: '16px',
@@ -126,9 +128,9 @@ const JoinRoomPage = () => {
             style={{
               width: '100%',
               padding: '14px',
-              background: 'transparent',
-              color: '#667eea',
-              border: '2px solid #667eea',
+              background: theme.colors.background.secondary,
+              color: theme.colors.text.primary,
+              border: `2px solid ${theme.colors.border.primary}`,
               borderRadius: '5px',
               fontSize: '16px',
               fontWeight: '600',

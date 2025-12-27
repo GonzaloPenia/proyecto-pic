@@ -237,52 +237,52 @@
 
 ### Frontend - UI de Salas
 
-- [ ] **Crear SocketContext**
+- [X] **Crear SocketContext**
 
-  - [ ] Crear `src/contexts/SocketContext.tsx`
-  - [ ] Inicializar socket.io-client con token
-  - [ ] Funciones: connect, disconnect, emit, on, off
-  - [ ] Usar tipos de @proyecto-pic/shared
-- [ ] **Crear Página CreateRoom**
+  - [X] Crear `src/contexts/SocketContext.tsx`
+  - [X] Inicializar socket.io-client con token
+  - [X] Funciones: connect, disconnect, emit, on, off
+  - [X] Usar tipos de @proyecto-pic/shared
+- [X] **Crear Página CreateRoom**
 
-  - [ ] Crear `src/pages/CreateRoomPage.tsx`
-  - [ ] Formulario: seleccionar maxPlayers (4, 6, 8)
-  - [ ] Llamar API POST `/rooms/create`
-  - [ ] Redireccionar a `/lobby/:roomCode`
-- [ ] **Crear Página JoinRoom**
+  - [X] Crear `src/pages/CreateRoomPage.tsx`
+  - [X] Formulario: seleccionar maxPlayers (4, 6, 8)
+  - [X] Llamar API POST `/rooms/create`
+  - [X] Redireccionar a `/lobby/:roomCode`
+- [X] **Crear Página JoinRoom**
 
-  - [ ] Crear `src/pages/JoinRoomPage.tsx`
-  - [ ] Input para ingresar roomCode
-  - [ ] Llamar API POST `/rooms/join`
-  - [ ] Redireccionar a `/lobby/:roomCode`
-- [ ] **Crear Componente RoomLobby**
+  - [X] Crear `src/pages/JoinRoomPage.tsx`
+  - [X] Input para ingresar roomCode
+  - [X] Llamar API POST `/rooms/join`
+  - [X] Redireccionar a `/lobby/:roomCode`
+- [X] **Crear Componente RoomLobby**
 
-  - [ ] Crear `src/components/lobby/RoomLobby.tsx`
-  - [ ] Mostrar roomCode grande
-  - [ ] Lista de jugadores conectados
-  - [ ] Indicar quién es el host
-- [ ] **Conectar WebSocket al Entrar a Lobby**
+  - [X] Crear `src/pages/LobbyPage.tsx` (implementado como página completa)
+  - [X] Mostrar roomCode grande
+  - [X] Lista de jugadores conectados
+  - [X] Indicar quién es el host
+- [X] **Conectar WebSocket al Entrar a Lobby**
 
-  - [ ] En LobbyPage, conectar socket
-  - [ ] Emitir evento `join_room` con roomCode
-  - [ ] Escuchar `player_joined` y actualizar lista
-  - [ ] Escuchar `player_left` y actualizar lista
-- [ ] **Crear Componente TeamAssignment**
+  - [X] En LobbyPage, conectar socket
+  - [X] Emitir evento `join_room` con roomCode
+  - [X] Escuchar `player_joined` y actualizar lista
+  - [X] Escuchar `player_left` y actualizar lista
+- [X] **Crear Componente TeamAssignment**
 
-  - [ ] Crear `src/components/lobby/TeamAssignment.tsx`
-  - [ ] Mostrar 2 columnas: Team 1 y Team 2
-  - [ ] Si es host: drag & drop para asignar jugadores
-  - [ ] Botón "Asignar Aleatoriamente" (solo host)
-  - [ ] Botón "Iniciar Juego" (solo host, habilitado si teams están asignados)
+  - [X] Integrado en `src/pages/LobbyPage.tsx`
+  - [X] Mostrar 2 columnas: Team 1 (Azul) y Team 2 (Blanco)
+  - [X] Botón "Asignar Aleatoriamente" (solo host)
+  - [X] Botón "Comenzar Juego" (solo host, habilitado si teams están asignados)
+  - [ ] Si es host: drag & drop para asignar jugadores (pendiente)
 - [ ] **Implementar Drag & Drop de Jugadores**
 
   - [ ] Usar librería o HTML5 drag & drop
   - [ ] Permitir mover jugadores entre equipos
   - [ ] Emitir `assign_teams` al confirmar
-- [ ] **Escuchar Evento teams_assigned**
+- [X] **Escuchar Evento teams_assigned**
 
-  - [ ] Actualizar estado local con equipos
-  - [ ] Mostrar jugadores en sus equipos respectivos
+  - [X] Actualizar estado local con equipos
+  - [X] Mostrar jugadores en sus equipos respectivos
 
 ### Finalización Fase 2
 
