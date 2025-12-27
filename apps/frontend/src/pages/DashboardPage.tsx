@@ -1,6 +1,7 @@
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
+import { Navbar } from '../components/common';
+import { theme } from '../utils';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -9,55 +10,63 @@ export default function DashboardPage() {
   return (
     <>
       <Navbar />
-      <div style={{ padding: '2rem' }}>
+      <div style={{
+        minHeight: '100vh',
+        background: theme.colors.background.primary,
+        padding: '2rem'
+      }}>
         <div style={{ marginBottom: '2rem' }}>
-          <h1>Pingonary</h1>
-          <p style={{ marginTop: '0.5rem', color: '#666' }}>
-            Bienvenido, <strong>{user?.username}</strong>!
+          <h1 style={{ color: theme.colors.text.secondary }}>Pingonary</h1>
+          <p style={{ marginTop: '0.5rem', color: theme.colors.text.secondary }}>
+            Bienvenido, <strong style={{ color: theme.colors.text.secondary }}>{user?.username}</strong>!
           </p>
         </div>
 
       <div>
-        <h2>Elije un modo de juego:</h2>
+        <h2 style={{ color: theme.colors.text.secondary }}>Elije un modo de juego:</h2>
 
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', marginTop: '1rem' }}>
-          {/* Botón naranja a la izquierda */}
+          {/* Botón a la izquierda */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem' }}>
+            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem', color: theme.colors.text.secondary }}>
               Todos en este dispositivo
             </p>
             <button
               style={{
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
+                padding: '14px 24px',
+                fontSize: '16px',
+                fontWeight: '600',
                 width: '250px',
-                backgroundColor: '#fa8023ff',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
+                backgroundColor: theme.colors.background.secondary,
+                color: theme.colors.text.primary,
+                border: `2px solid ${theme.colors.border.secondary}`,
+                borderRadius: '5px',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
               }}
             >
               Jugar!
             </button>
           </div>
 
-          {/* Botones verde y azul a la derecha */}
+          {/* Botones a la derecha */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem' }}>
+            <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.95rem', color: theme.colors.text.secondary }}>
               Cada uno en su dispositivo
             </p>
             <button
               onClick={() => navigate('/create-room')}
               style={{
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
+                padding: '14px 24px',
+                fontSize: '16px',
+                fontWeight: '600',
                 width: '250px',
-                backgroundColor: '#28a745',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
+                backgroundColor: theme.colors.background.primary,
+                color: theme.colors.text.secondary,
+                border: `2px solid ${theme.colors.border.secondary}`,
+                borderRadius: '5px',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
               }}
             >
               Crear Sala Nueva
@@ -66,14 +75,16 @@ export default function DashboardPage() {
             <button
               onClick={() => navigate('/join-room')}
               style={{
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
+                padding: '14px 24px',
+                fontSize: '16px',
+                fontWeight: '600',
                 width: '250px',
-                backgroundColor: '#007bff',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
+                backgroundColor: theme.colors.background.secondary,
+                color: theme.colors.text.primary,
+                border: `2px solid ${theme.colors.border.secondary}`,
+                borderRadius: '5px',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
               }}
             >
               Unirse a Sala
@@ -81,11 +92,13 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <p style={{ marginTop: '1rem', color: '#666', fontSize: '0.875rem' }}>
+        <p style={{ marginTop: '1rem', color: theme.colors.text.secondary, fontSize: '0.875rem' }}>
           Para mejorar la experiencia de juego recomendamos la opcion "Cada uno en su dispositivo".
 
         </p>
+        <p style={{ color: theme.colors.text.secondary, fontSize: '0.875rem' }}>
           Estas opciones estarán disponibles en la próxima fase del desarrollo.
+        </p>
       </div>
       </div>
     </>

@@ -26,7 +26,18 @@
       "Bash(curl:*)",
       "Bash(pnpm dev:*)",
       "Bash(timeout 10 bash -c \"while ! netstat -ano | grep -q '':5173.*LISTENING''; do sleep 1; done && echo ''Frontend server is up''\")",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npm run migration:create:*)",
+      "Bash(npm run build:*)",
+      "Bash(psql:*)",
+      "Bash(node run-migration.js:*)",
+      "Bash(node:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(node check-tables.js:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nimplementar sistema completo de asignación de equipos y tracking de jugadores\n\nBackend - Entidades de Juego:\n- Crear entidad Game con condiciones de victoria y estado\n- Crear entidad Team con nombres \"Azul\" y \"Blanco\" \\(colores argentinos\\)\n- Crear entidad GameParticipant para tracking de jugadores en partidas\n- Agregar campos de tracking de conexión y orden de entrada\n\nBackend - GamesService:\n- Implementar tracking en memoria de jugadores conectados por sala\n- Crear métodos de validación de límite de jugadores\n- Implementar creación automática de equipos Azul y Blanco\n- Desarrollar asignación manual de equipos por el host\n- Implementar asignación aleatoria con algoritmo Fisher-Yates\n- Métodos de gestión de participantes y consulta de equipos\n\nBackend - WebSocket Events:\n- Mejorar join_room con validación de límite y tracking\n- Actualizar leave_room con limpieza de tracking\n- Implementar evento assign_teams para asignación manual \\(solo host\\)\n- Implementar evento assign_teams_random para asignación aleatoria\n- Broadcast teams_assigned con información completa de equipos\n\nConfiguración:\n- Crear tsconfig.migration.json para solucionar errores de TypeORM\n- Actualizar configuración de scripts de migración\n- Integrar GamesModule en WebSocketsModule\n- Añadir decoradores ! en entidades para TypeScript strict mode\n\nDocumentación:\n- Actualizar ROADMAP con tareas completadas de Fase 2\n- Marcar tracking de jugadores como completado\n- Marcar asignación manual y aleatoria de equipos como completado\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(test:*)"
     ]
   }
 }

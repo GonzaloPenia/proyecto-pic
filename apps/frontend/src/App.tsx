@@ -1,12 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import CreateRoomPage from './pages/CreateRoomPage';
-import JoinRoomPage from './pages/JoinRoomPage';
-import LobbyPage from './pages/LobbyPage';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  DashboardPage,
+  CreateRoomPage,
+  JoinRoomPage,
+  LobbyPage
+} from './pages';
+import { ProtectedRoute } from './components/common';
 import './App.css';
 
 function App() {

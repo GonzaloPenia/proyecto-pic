@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSocket } from '../contexts/SocketContext';
-import { useAuth } from '../contexts/AuthContext';
+import { useSocket, useAuth } from '../contexts';
 import { roomsService } from '../services/rooms.service';
 
 interface Player {
