@@ -14,35 +14,35 @@ export type RoomStatus = 'waiting' | 'team_setup' | 'in_progress' | 'finished';
 @Entity('rooms')
 export class Room {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index('idx_room_code', { unique: true })
   @Column({ type: 'varchar', length: 6, unique: true, name: 'room_code' })
-  roomCode: string;
+  roomCode!: string;
 
   @Column({ type: 'uuid', name: 'host_id' })
-  hostId: string;
+  hostId!: string;
 
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'host_id' })
-  host: User;
+  host!: User;
 
   @Column({
     type: 'enum',
     enum: ['waiting', 'team_setup', 'in_progress', 'finished'],
     default: 'waiting',
   })
-  status: RoomStatus;
+  status!: RoomStatus;
 
   @Column({ type: 'int', default: 8, name: 'max_players' })
-  maxPlayers: number;
+  maxPlayers!: number;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column({ type: 'timestamp', nullable: true, name: 'started_at' })
-  startedAt: Date | null;
+  startedAt!: Date | null;
 
   @Column({ type: 'timestamp', nullable: true, name: 'finished_at' })
-  finishedAt: Date | null;
+  finishedAt!: Date | null;
 }

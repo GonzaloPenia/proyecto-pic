@@ -10,28 +10,28 @@ import {
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Index('idx_username', { unique: true })
   @Column({ type: 'varchar', length: 50, unique: true })
-  username: string;
+  username!: string;
 
   @Index('idx_email', { unique: true })
   @Column({ type: 'varchar', length: 255, unique: true })
-  email: string;
+  email!: string;
 
   @Column({ type: 'varchar', length: 255, name: 'password_hash' })
-  passwordHash: string;
+  passwordHash!: string;
 
   @Column({ type: 'boolean', default: true, name: 'is_active' })
-  isActive: boolean;
+  isActive!: boolean;
 
   @Column({ type: 'timestamp', nullable: true, name: 'last_login' })
-  lastLogin: Date | null;
+  lastLogin!: Date | null;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
-  updatedAt: Date;
+  updatedAt!: Date;
 }
