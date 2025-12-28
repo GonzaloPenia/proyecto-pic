@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { WebsocketsModule } from './websockets/websockets.module';
 import { GamesModule } from './games/games.module';
+import { WordsModule } from './words/words.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { GamesModule } from './games/games.module';
     RoomsModule,
     WebsocketsModule,
     GamesModule,
+    WordsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

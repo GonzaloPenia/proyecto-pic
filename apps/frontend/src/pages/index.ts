@@ -13,3 +13,4 @@ export { default as JoinRoomPage } from './JoinRoomPage';
 export { default as LobbyPage } from './LobbyPage';
 export { default as LoginPage } from './LoginPage';
 export { default as RegisterPage } from './RegisterPage';
+export { GamePage } from './GamePage';

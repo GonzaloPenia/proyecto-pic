@@ -60,6 +60,8 @@ const LobbyPage = () => {
   useEffect(() => {
     if (!socket || !isConnected || !roomCode) return;
 
+    console.log('✓ Conectado al servidor');
+
     const handleJoinRoom = async () => {
       try {
         await joinRoom(roomCode);
@@ -111,10 +113,16 @@ const LobbyPage = () => {
       setTeams(data.participants);
     };
 
+    const handleGameStarted = (data: any) => {
+      console.log('Game started, navigating to game page:', data);
+      navigate(`/game/${roomCode}`);
+    };
+
     socket.on('room_state', handleRoomState);
     socket.on('player_joined', handlePlayerJoined);
     socket.on('player_left', handlePlayerLeft);
     socket.on('teams_assigned', handleTeamsAssigned);
+    socket.on('game_started', handleGameStarted);
 
     // Cleanup
     return () => {
@@ -122,6 +130,7 @@ const LobbyPage = () => {
       socket.off('player_joined', handlePlayerJoined);
       socket.off('player_left', handlePlayerLeft);
       socket.off('teams_assigned', handleTeamsAssigned);
+      socket.off('game_started', handleGameStarted);
 
       leaveRoom(roomCode).catch(console.error);
     };
@@ -140,6 +149,28 @@ const LobbyPage = () => {
 
   const handleLeaveRoom = () => {
     navigate('/dashboard');
+  };
+
+  const handleStartGame = () => {
+    if (!socket || !roomCode) return;
+
+    // Validate teams
+    const team1 = teams.filter(t => t.teamNumber === 1);
+    const team2 = teams.filter(t => t.teamNumber === 2);
+
+    if (team1.length === 0 || team2.length === 0) {
+      setError('Ambos equipos deben tener al menos un jugador');
+      return;
+    }
+
+    if (team1.length < 2 || team2.length < 2) {
+      setError('Cada equipo debe tener al menos 2 jugadores para comenzar');
+      return;
+    }
+
+    // Emit start_game event
+    console.log('Starting game...');
+    socket.emit('start_game', { roomCode });
   };
 
   if (loading) {
@@ -259,18 +290,6 @@ const LobbyPage = () => {
           >
             Salir
           </button>
-        </div>
-
-        {/* Status de conexión */}
-        <div style={{
-          marginBottom: '20px',
-          padding: '12px',
-          background: isConnected ? '#d4edda' : '#f8d7da',
-          color: isConnected ? '#155724' : '#721c24',
-          borderRadius: '5px',
-          fontSize: '14px'
-        }}>
-          {isConnected ? '✓ Conectado al servidor' : '⚠ Desconectado del servidor'}
         </div>
 
         {/* Jugadores sin asignar */}
@@ -411,6 +430,7 @@ const LobbyPage = () => {
               Asignar Equipos Aleatoriamente
             </button>
             <button
+              onClick={handleStartGame}
               disabled={teams.length === 0 || team1.length === 0 || team2.length === 0}
               style={{
                 flex: 1,

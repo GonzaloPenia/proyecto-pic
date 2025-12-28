@@ -6,8 +6,18 @@ import { GamesService } from '../../games/games.service';
 export class ConnectionHandler {
   private readonly logger = new Logger('ConnectionHandler');
   private clientRooms: Map<string, string> = new Map();
+  private gameDisconnectHandler: ((userId: string, roomCode: string, server: Server) => void) | null = null;
 
   constructor(private readonly gamesService: GamesService) {}
+
+  /**
+   * Registra el handler para desconexiones durante el juego
+   */
+  setGameDisconnectHandler(
+    handler: (userId: string, roomCode: string, server: Server) => void,
+  ): void {
+    this.gameDisconnectHandler = handler;
+  }
 
   /**
    * Maneja la autenticación y conexión de un cliente WebSocket
@@ -41,6 +51,11 @@ export class ConnectionHandler {
     const roomCode = this.clientRooms.get(client.id);
 
     if (roomCode && user) {
+      // Si hay un handler de juego registrado, llamarlo primero
+      if (this.gameDisconnectHandler) {
+        this.gameDisconnectHandler(user.sub, roomCode, server);
+      }
+
       // Remover jugador del tracking
       this.gamesService.removePlayerFromRoom(roomCode, user.sub);
 

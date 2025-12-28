@@ -6,7 +6,8 @@ import {
   DashboardPage,
   CreateRoomPage,
   JoinRoomPage,
-  LobbyPage
+  LobbyPage,
+  GamePage,
 } from './pages';
 import { ProtectedRoute } from './components/common';
 import './App.css';
@@ -46,6 +47,14 @@ function App() {
         element={
           <ProtectedRoute>
             <LobbyPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/game/:roomCode"
+        element={
+          <ProtectedRoute>
+            <GamePage />
           </ProtectedRoute>
         }
       />

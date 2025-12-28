@@ -2,8 +2,8 @@
 
 ## 📍 Estado Actual del Proyecto
 
-**Fase actual:** Fase 2 - Sistema de Salas (Backend Completado) ✅
-**Próximo paso:** Implementar Frontend de Salas (UI de Lobby) o continuar con Fase 3 (Lógica del Juego)
+**Fase actual:** Fase 3 - Lógica Core del Juego (En Progreso) 🚧
+**Próximo paso:** Implementar servicios de lógica de juego y eventos WebSocket del juego
 
 ---
 
@@ -288,15 +288,15 @@
 
 - [ ] **Testing Salas**
 
-  - [ ] Probar crear sala
-  - [ ] Probar unirse con código
+  - [X] Probar crear sala
+  - [X] Probar unirse con código
   - [ ] Probar asignación manual de equipos
-  - [ ] Probar asignación aleatoria
-  - [ ] Probar con múltiples usuarios (2+ navegadores)
-- [ ] **Commit de Fase 2**
+  - [X] Probar asignación aleatoria
+  - [X] Probar con múltiples usuarios (2+ navegadores)
+- [X] **Commit de Fase 2**
 
-  - [ ] Crear commit descriptivo
-  - [ ] Pushear a GitHub
+  - [X] Crear commit descriptivo
+  - [X] Pushear a GitHub
 
 ---
 
@@ -304,174 +304,175 @@
 
 ### Backend - Sistema de Juego
 
-- [ ] **Crear Entidades del Juego**
+- [X] **Crear Entidades del Juego**
 
-  - [ ] Crear entidad Game (id, roomId, victoryCondition, currentRound, status, winnerTeamId)
-  - [ ] Crear entidad GameRound (id, gameId, roundNumber, drawerId, guesserId, wordId, status, guessed, timeElapsed)
+  - [X] Crear entidad Game (id, roomId, victoryCondition, currentRound, status, winnerTeamId)
+  - [X] Crear entidad GameRound (id, gameId, roundNumber, drawerId, guesserId, wordId, status, guessed, timeElapsed)
   - [ ] Generar migraciones
-- [ ] **Crear Entidad Word y Seeders**
+- [X] **Crear Entidad Word y Seeders**
 
-  - [ ] Crear entidad Word (id, category, wordText, difficulty, isActive)
+  - [X] Crear entidad Word (id, category, wordText, difficulty, isActive)
   - [ ] Generar migración
-  - [ ] Crear seeder con palabras iniciales:
-    - [ ] 20+ palabras categoría "Acciones"
-    - [ ] 20+ palabras categoría "Objetos"
-    - [ ] 20+ palabras categoría "Refranes"
-    - [ ] 20+ palabras categoría "Costumbres Argentinas"
-- [ ] **Crear GameStateService (In-Memory)**
+  - [X] Crear seeder con palabras iniciales:
+    - [X] 20+ palabras categoría "Acciones"
+    - [X] 20+ palabras categoría "Objetos"
+    - [X] 20+ palabras categoría "Refranes"
+    - [X] 20+ palabras categoría "Costumbres Argentinas"
+- [X] **Crear GameStateService (In-Memory)**
 
-  - [ ] Crear `src/games/game-state.service.ts`
-  - [ ] Mantener Map<gameId, GameState>
-  - [ ] Métodos: getGameState, updateGameState, initializeGame, removeGame
-- [ ] **Crear TurnManagerService**
+  - [X] Crear `src/games/game-state.service.ts`
+  - [X] Mantener Map<gameId, GameState>
+  - [X] Métodos: getGameState, updateGameState, initializeGame, removeGame
+- [X] **Crear TurnManagerService**
 
-  - [ ] Crear `src/games/turn-manager.service.ts`
-  - [ ] Implementar algoritmo de rotación de turnos
-  - [ ] Método generateTurnOrder(team1Players, team2Players)
-  - [ ] Método getNextTurn(currentTurn, turnOrder)
-- [ ] **Implementar Inicio de Juego**
+  - [X] Crear `src/games/turn-manager.service.ts`
+  - [X] Implementar algoritmo de rotación de turnos
+  - [X] Método generateTurnOrder(team1Players, team2Players)
+  - [X] Método getNextTurn(currentTurn, turnOrder)
+- [X] **Implementar Inicio de Juego**
 
-  - [ ] Evento `start_game` (solo host)
-  - [ ] Validar que equipos están asignados
-  - [ ] Crear registro en tabla games
-  - [ ] Crear registros en tabla teams
-  - [ ] Inicializar GameState en memoria
-  - [ ] Generar turnOrder
-  - [ ] Broadcast `game_started` con estado inicial
-- [ ] **Implementar DiceRollerService**
+  - [X] Evento `start_game` (solo host)
+  - [X] Validar que equipos están asignados
+  - [X] Crear registro en tabla games
+  - [X] Crear registros en tabla teams
+  - [X] Inicializar GameState en memoria
+  - [X] Generar turnOrder
+  - [X] Broadcast `game_started` con estado inicial
+- [X] **Implementar DiceRollerService**
 
-  - [ ] Crear `src/words/dice-roller.service.ts`
-  - [ ] Método roll() que retorna categoría aleatoria
-  - [ ] Simular animación de dado (duración 2 segundos)
-- [ ] **Implementar Evento roll_dice**
+  - [X] Crear `src/words/dice-roller.service.ts`
+  - [X] Método roll() que retorna categoría aleatoria
+  - [X] Simular animación de dado (duración 2 segundos)
+- [X] **Implementar Evento roll_dice**
 
-  - [ ] Validar que quien emite es el dibujante actual
-  - [ ] Llamar diceRollerService.roll()
-  - [ ] Broadcast `dice_rolled` a todos con categoría y animación
-  - [ ] Obtener palabra aleatoria de esa categoría
-  - [ ] Guardar palabra en GameState
-  - [ ] Enviar evento `word_assigned` SOLO al socket del dibujante
-- [ ] **Implementar Timer del Turno**
+  - [X] Validar que quien emite es el dibujante actual
+  - [X] Llamar diceRollerService.roll()
+  - [X] Broadcast `dice_rolled` a todos con categoría y animación
+  - [X] Obtener palabra aleatoria de esa categoría
+  - [X] Guardar palabra en GameState
+  - [X] Enviar evento `word_assigned` SOLO al socket del dibujante
+- [X] **Implementar Timer del Turno**
 
-  - [ ] Al asignar palabra, iniciar timer de 60 segundos
-  - [ ] Broadcast `turn_started` a todos (drawer, guesser, duration)
-  - [ ] Emitir `timer_tick` cada segundo a todos
-  - [ ] Al llegar a 0, emitir `turn_timeout` con palabra revelada
-- [ ] **Implementar Evento mark_guessed**
+  - [X] Al asignar palabra, iniciar timer de 60 segundos
+  - [X] Broadcast `turn_started` a todos (drawer, guesser, duration)
+  - [X] Emitir `timer_tick` cada segundo a todos
+  - [X] Al llegar a 0, emitir `turn_timeout` con palabra revelada
+- [X] **Implementar Evento mark_guessed**
 
-  - [ ] Validar que quien emite es el adivinador actual
-  - [ ] Detener timer
-  - [ ] Calcular timeElapsed
-  - [ ] Incrementar score del equipo
-  - [ ] Agregar categoría a categoriesGuessed si no existe
+  - [X] Validar que quien emite es el adivinador actual
+  - [X] Detener timer
+  - [X] Calcular timeElapsed
+  - [X] Incrementar score del equipo
+  - [X] Agregar categoría a categoriesGuessed si no existe
   - [ ] Guardar GameRound en DB con guessed=true
-  - [ ] Broadcast `word_guessed` con info del equipo
-- [ ] **Implementar Verificación de Victoria**
+  - [X] Broadcast `word_guessed` con info del equipo
+- [X] **Implementar Verificación de Victoria**
 
-  - [ ] Método checkVictoryCondition(gameState)
-  - [ ] Lógica para "first_to_3"
-  - [ ] Lógica para "first_to_5"
-  - [ ] Lógica para "all_categories"
-  - [ ] Si hay ganador, emitir `game_over` y finalizar
-- [ ] **Implementar Siguiente Turno**
+  - [X] Método checkVictoryCondition(gameState)
+  - [X] Lógica para "first_to_3"
+  - [X] Lógica para "first_to_5"
+  - [X] Lógica para "all_categories"
+  - [X] Si hay ganador, emitir `game_over` y finalizar
+- [X] **Implementar Siguiente Turno**
 
-  - [ ] Obtener nextTurn de turnOrder
-  - [ ] Actualizar GameState
-  - [ ] Broadcast `next_turn` con próximo drawer y guesser
-  - [ ] Esperar a que nuevo drawer haga roll_dice
-- [ ] **Manejo de Desconexiones**
+  - [X] Obtener nextTurn de turnOrder
+  - [X] Actualizar GameState
+  - [X] Broadcast `next_turn` con próximo drawer y guesser
+  - [X] Esperar a que nuevo drawer haga roll_dice
+- [X] **Manejo de Desconexiones**
 
-  - [ ] Escuchar evento `disconnect`
-  - [ ] Marcar jugador como desconectado en GameParticipant
-  - [ ] Broadcast `player_disconnected`
-  - [ ] Si es drawer o guesser actual, pausar juego
-- [ ] **Manejo de Reconexiones**
+  - [X] Escuchar evento `disconnect`
+  - [X] Detectar si jugador desconectado es drawer o guesser actual
+  - [X] Broadcast `game_paused` con información del jugador desconectado
+  - [X] Pausar juego y guardar tiempo restante del timer
+- [X] **Manejo de Reconexiones**
 
-  - [ ] Evento `rejoin_game`
-  - [ ] Marcar jugador como conectado
-  - [ ] Enviar estado completo del juego al jugador
-  - [ ] Broadcast `player_reconnected`
-  - [ ] Reanudar juego si estaba pausado
+  - [X] Evento `rejoin_game`
+  - [X] Enviar estado completo del juego al jugador vía `game_state_sync`
+  - [X] Broadcast `player_reconnected`
+  - [X] Reanudar juego automáticamente si estaba pausado
+  - [X] Reanudar timer desde tiempo guardado
 
 ### Frontend - UI del Juego
 
-- [ ] **Crear GameContext**
+- [X] **Crear GameContext**
 
-  - [ ] Crear `src/contexts/GameContext.tsx`
-  - [ ] Estado: gameState, myRole (drawer/guesser/spectator), currentWord, timeRemaining
-  - [ ] Función rollDice()
-  - [ ] Función markGuessed()
-- [ ] **Crear Hook useGameState**
+  - [X] Crear `src/contexts/GameContext.tsx`
+  - [X] Estado: gameState, myRole (drawer/guesser/spectator), currentWord, timeRemaining
+  - [X] Función rollDice()
+  - [X] Función markGuessed()
+- [X] **Crear Hook useGameState**
 
-  - [ ] Crear `src/hooks/useGameState.ts`
-  - [ ] Determinar myRole basado en gameState y userId
-  - [ ] Retornar info útil para componentes
-- [ ] **Crear Página GamePage**
+  - [X] Crear `src/hooks/useGameState.ts`
+  - [X] Determinar myRole basado en gameState y userId
+  - [X] Retornar info útil para componentes
+- [X] **Crear Página GamePage**
 
-  - [ ] Crear `src/pages/GamePage.tsx`
-  - [ ] Escuchar todos los eventos del juego
-  - [ ] Actualizar GameContext con eventos
-- [ ] **Crear Componente GameContainer**
+  - [X] Crear `src/pages/GamePage.tsx`
+  - [X] Escuchar todos los eventos del juego
+  - [X] Actualizar GameContext con eventos
+  - [X] Agregar ruta /game/:roomCode en App.tsx
+- [X] **Crear Componente GameContainer**
 
-  - [ ] Crear `src/components/game/GameContainer.tsx`
-  - [ ] Orquestador que decide qué vista mostrar
-  - [ ] Mostrar DrawerView, GuesserView o SpectatorView según rol
-- [ ] **Crear Componente DrawerView**
+  - [X] Crear `src/components/game/GameContainer.tsx`
+  - [X] Orquestador que decide qué vista mostrar
+  - [X] Mostrar DrawerView, GuesserView o SpectatorView según rol
+- [X] **Crear Componente DrawerView**
 
-  - [ ] Crear `src/components/game/DrawerView.tsx`
-  - [ ] Mostrar la palabra en grande
-  - [ ] Instrucciones: "Dibuja esto en papel"
-  - [ ] Timer visible
-- [ ] **Crear Componente GuesserView**
+  - [X] Crear `src/components/game/DrawerView.tsx`
+  - [X] Mostrar la palabra en grande
+  - [X] Instrucciones: "Dibuja esto en papel"
+  - [X] Integración con DiceRoller y Timer
+- [X] **Crear Componente GuesserView**
 
-  - [ ] Crear `src/components/game/GuesserView.tsx`
-  - [ ] Mostrar: "Tu compañero está dibujando"
-  - [ ] Botón grande: "¡Adiviné!" (llama markGuessed)
-  - [ ] Timer visible
-- [ ] **Crear Componente SpectatorView**
+  - [X] Crear `src/components/game/GuesserView.tsx`
+  - [X] Mostrar: "Tu compañero está dibujando"
+  - [X] Botón grande: "¡Adiviné!" (llama markGuessed)
+  - [X] Timer visible
+- [X] **Crear Componente SpectatorView**
 
-  - [ ] Crear `src/components/game/SpectatorView.tsx`
-  - [ ] Mostrar quién está dibujando y adivinando
-  - [ ] Timer visible
-  - [ ] Mensaje: "Esperando..."
-- [ ] **Crear Componente Timer**
+  - [X] Crear `src/components/game/SpectatorView.tsx`
+  - [X] Mostrar quién está dibujando y adivinando
+  - [X] Timer visible
+  - [X] Mensaje: "Esperando..."
+- [X] **Crear Componente Timer**
 
-  - [ ] Crear `src/components/game/Timer.tsx`
-  - [ ] Animación de reloj de arena
-  - [ ] Mostrar segundos restantes
-  - [ ] Actualizar con evento `timer_tick`
-- [ ] **Crear Componente DiceRoller**
+  - [X] Crear `src/components/game/Timer.tsx`
+  - [X] Animación de reloj de arena circular
+  - [X] Mostrar segundos restantes
+  - [X] Actualizar con evento `timer_tick`
+  - [X] Colores dinámicos según tiempo restante
+- [X] **Crear Componente DiceRoller**
 
-  - [ ] Crear `src/components/game/DiceRoller.tsx`
-  - [ ] Botón "Tirar Dado" (solo visible para drawer)
-  - [ ] Animación de dado girando (2 segundos)
-  - [ ] Mostrar categoría resultante
-- [ ] **Crear Componente ScoreBoard**
+  - [X] Crear `src/components/game/DiceRoller.tsx`
+  - [X] Botón "Tirar Dado" (solo visible para drawer)
+  - [X] Animación de dado girando (2 segundos)
+  - [X] Mostrar categoría resultante
+- [X] **Crear Componente ScoreBoard**
 
-  - [ ] Crear `src/components/game/ScoreBoard.tsx`
-  - [ ] Mostrar scores de Team 1 y Team 2
-  - [ ] Actualizar con `game_state_update`
-- [ ] **Crear Componente CategoryDisplay**
+  - [X] Crear `src/components/game/ScoreBoard.tsx`
+  - [X] Mostrar scores de Team 1 y Team 2
+  - [X] Mostrar categorías completadas por equipo
+- [X] **Crear Componente GameOverModal**
 
-  - [ ] Mostrar categoría actual del turno
-  - [ ] Mostrar categorías ya adivinadas por cada equipo
-- [ ] **Crear Componente GameOverModal**
+  - [X] Crear `src/components/game/GameOverModal.tsx`
+  - [X] Mostrar equipo ganador
+  - [X] Mostrar scores finales
+  - [X] Botón "Volver al Lobby"
+- [X] **Conectar Eventos de WebSocket**
 
-  - [ ] Crear `src/components/game/GameOverModal.tsx`
-  - [ ] Mostrar equipo ganador
-  - [ ] Mostrar scores finales
-  - [ ] Botón "Volver al Lobby" o "Nueva Partida"
-- [ ] **Conectar Eventos de WebSocket**
-
-  - [ ] Escuchar `game_started` y navegar a /game/:roomCode
-  - [ ] Escuchar `dice_rolled` y mostrar animación
-  - [ ] Escuchar `word_assigned` y guardar en GameContext
-  - [ ] Escuchar `turn_started` y actualizar estado
-  - [ ] Escuchar `timer_tick` y actualizar timer
-  - [ ] Escuchar `word_guessed` y actualizar scores
-  - [ ] Escuchar `turn_timeout` y mostrar palabra
-  - [ ] Escuchar `next_turn` y actualizar roles
-  - [ ] Escuchar `game_over` y mostrar modal
+  - [X] Escuchar `game_started` y navegar a /game/:roomCode
+  - [X] Escuchar `dice_rolling` para animación
+  - [X] Escuchar `dice_rolled` y actualizar categoría
+  - [X] Escuchar `word_assigned` y guardar en GameContext
+  - [X] Escuchar `turn_started` y actualizar estado y roles
+  - [X] Escuchar `timer_tick` y actualizar timer
+  - [X] Escuchar `word_guessed` y actualizar scores
+  - [X] Escuchar `turn_timeout` y mostrar palabra
+  - [X] Escuchar `game_paused` y mostrar overlay
+  - [X] Escuchar `game_resumed` y quitar overlay
+  - [X] Escuchar `game_state_sync` para reconexiones
+  - [X] Escuchar `game_over` y mostrar modal
 
 ### Finalización Fase 3
 

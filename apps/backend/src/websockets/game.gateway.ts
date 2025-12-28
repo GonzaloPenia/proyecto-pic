@@ -11,7 +11,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { Logger, UseGuards } from '@nestjs/common';
 import { WsJwtGuard } from '../common/guards/ws-jwt.guard';
-import { ConnectionHandler, RoomHandler, TeamHandler } from './handlers';
+import { ConnectionHandler, RoomHandler, TeamHandler, GameHandler } from './handlers';
 
 @WebSocketGateway({
   cors: {
@@ -32,10 +32,18 @@ export class GameGateway
     private readonly connectionHandler: ConnectionHandler,
     private readonly roomHandler: RoomHandler,
     private readonly teamHandler: TeamHandler,
+    private readonly gameHandler: GameHandler,
   ) {}
 
   afterInit(server: Server) {
     this.logger.log('WebSocket Gateway initialized');
+
+    // Registrar el handler de desconexión de juego
+    this.connectionHandler.setGameDisconnectHandler(
+      (userId: string, roomCode: string, server: Server) => {
+        this.gameHandler.handlePlayerDisconnect(userId, roomCode, server);
+      },
+    );
   }
 
   async handleConnection(client: Socket) {
@@ -89,5 +97,41 @@ export class GameGateway
     @MessageBody() data: { roomCode: string },
   ) {
     return await this.teamHandler.handleAssignTeamsRandom(client, data, this.server);
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('start_game')
+  async handleStartGame(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: { roomCode: string },
+  ) {
+    return await this.gameHandler.handleStartGame(client, data, this.server);
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('roll_dice')
+  async handleRollDice(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: { roomCode: string },
+  ) {
+    return await this.gameHandler.handleRollDice(client, data, this.server);
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('mark_guessed')
+  async handleMarkGuessed(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: { roomCode: string },
+  ) {
+    return await this.gameHandler.handleMarkGuessed(client, data, this.server);
+  }
+
+  @UseGuards(WsJwtGuard)
+  @SubscribeMessage('rejoin_game')
+  async handleRejoinGame(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: { roomCode: string },
+  ) {
+    return await this.gameHandler.handleRejoinGame(client, data, this.server);
   }
 }
